@@ -1,4 +1,7 @@
 # BasicSR4LF
+
+The official repository of ''**Light Field Super-Resolution with Hybrid Attention Network**''.
+
 Our project is primarily based on [BasicSR](https://github.com/XPixelGroup/BasicSR/tree/master/basicsr), inheriting its usability and efficiency.
 
 ## Key Modifications
