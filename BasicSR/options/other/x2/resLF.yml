@@ -1,0 +1,71 @@
+name: other
+suffix: ~  # add suffix to saved images
+model_type: LFSRModel
+scale: 2
+crop_border: 4  # crop border when evaluation. If None, crop the scale pixels
+num_gpu: 1  # set num_gpu: 0 for cpu mode
+manual_seed: 0
+
+datasets:
+  test_1:
+    name: EPFL
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_2x_npy
+    dataset_name: ['EPFL']
+  test_2:
+    name: HCI_new
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_2x_npy
+    dataset_name: ['HCI_new']
+  test_3:
+    name: HCI_old
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_2x_npy
+    dataset_name: ['HCI_old']
+  test_4:
+    name: INRIA_Lytro
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_2x_npy
+    dataset_name: ['INRIA_Lytro']
+  test_5:
+    name: Stanford_Gantry
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_2x_npy
+    dataset_name: ['Stanford_Gantry']
+
+
+
+network_g:
+  type: resLF
+  args:
+    scale_factor: 2
+    angRes_in: 5
+
+
+val:
+  save_img: false
+  split_test: 32
+  # TTA: True
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr_lf
+      crop_border: 2
+      test_y_channel: false
+      input_order: CHW    
+    ssim: # metric name, can be arbitrary
+      type: calculate_ssim_lf
+      crop_border: 2
+      test_y_channel: false
+      input_order: CHW
+
+# path
+path:
+  # pretrain_network_g: /opt/data/private/LFSR/T4LF/BasicSR/pretrain_model/x4.pth
+  pretrain_network_g: /opt/data/private/LFSR/.other_results/BasicLFSR-main/pth/resLF_5x5_2x_model.pth
+  strict_load_g: true
+  param_key_g: state_dict

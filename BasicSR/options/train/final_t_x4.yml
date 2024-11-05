@@ -1,0 +1,131 @@
+name: final_t_x4
+model_type: LFSRModel
+scale: 4
+num_gpu: auto
+# num_gpu: 1
+manual_seeed: 10
+datasets:
+  train:
+    name: all
+    type: H5LFDataset
+    angRes: 5
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_training/SR_9x9_4x
+    dataset_name: ['EPFL','HCI_new','HCI_old','INRIA_Lytro','Stanford_Gantry']
+    scale_factor: 4
+    patch_size: 32
+
+
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 6
+    dataset_enlarge_ratio: 100
+    prefetch_mode: cpu
+    pin_memory: true
+    num_prefetch_queue: 8
+
+  val_0:
+    name: EPFL
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_4x_npy
+    dataset_name: ['EPFL']
+    pin_memory: true
+  val_1:
+    name: HCI_new
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_4x_npy
+    dataset_name: ['HCI_new']
+    pin_memory: true
+  val_2:
+    name: HCI_old
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_4x_npy
+    dataset_name: ['HCI_old']
+    pin_memory: true  
+  val_3:
+    name: INRIA_Lytro
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_4x_npy
+    dataset_name: ['INRIA_Lytro']
+    pin_memory: true    
+  val_4:
+    name: Stanford_Gantry
+    type: NpyLFDataset
+    angRes: [5,5]
+    dataroot: /opt/data/private/LFSR/T4LF/data_for_test/SR_5x5_4x_npy
+    dataset_name: ['Stanford_Gantry']
+    pin_memory: true
+
+
+network_g:
+  type: CST_
+  num_feat: 48
+  num_group: 5
+  heads: 4
+  upscale: 4
+
+
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+
+# training settings
+train:
+  ema_decay: 0.99
+  optim_g:
+    type: Adam
+    lr: !!float 3e-4  
+    weight_decay: 0
+    betas: [0.9, 0.99]
+
+  scheduler:
+    type: MultiStepLR
+    milestones: [200000]
+    gamma: 0.5
+
+  total_iter: 200000
+  warmup_iter: 100  # no warm up
+
+  # losses
+  pixel_opt:
+    type: L1Loss
+    loss_weight: 1.0
+    reduction: mean
+
+# validation settings
+val:
+  val_freq: !!float 2e4
+  save_img: false
+  # split_test: 256
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr_lf
+      crop_border: 2
+      test_y_channel: false
+      input_order: CHW
+    ssim: 
+      type: calculate_ssim_lf
+      crop_border: 2
+      test_y_channel: false
+      input_order: CHW
+
+# logging settings
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 2e4
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500
+
+# find_unused_parameters: True
