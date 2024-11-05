@@ -55,7 +55,7 @@ It is only few step to modify the code from BasicLFSR to our project.
     path:
         param_key_g: state_dict
     ```
-    
+
 ## Differences from BasicLFSR
 |              | Our Implementation | BasicLFSR   |
 | ------------ | ------------------ | ----------- |
@@ -103,3 +103,8 @@ Here is the result for $\times4$ SR.
 | EPIT        | 30.051/0.8775 | 31.349/0.8629 | 37.550/0.9423 | 32.458/0.9122 | 32.047/0.9430 |
 | HLFSR-SSR   | 30.187/0.8815 | 31.390/0.8642 | 37.697/0.9435 | 32.600/0.9137 | 31.461/0.9379 |
 | LF-DET      | 30.286/0.8834 | 31.399/0.8635 | 37.779/0.9442 | 32.639/0.9146 | 32.034/0.9435 |
+
+# References
+
++ [BasicSR](https://github.com/XPixelGroup/BasicSR/tree/master/basicsr)
++ [BasicLFSR](https://github.com/ZhengyuLiang24/BasicLFSR)
