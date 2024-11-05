@@ -1,5 +1,5 @@
 # BasicSR4LF
-Our project is primarily based on [BasicSR](https://github.com/XPixelGroup/BasicSR/tree/master/basicsr)., inheriting its usability and efficiency.
+Our project is primarily based on [BasicSR](https://github.com/XPixelGroup/BasicSR/tree/master/basicsr), inheriting its usability and efficiency.
 
 ## Key Modifications
 + `BasicSR/basicsr/models/lfsr_model.py`
