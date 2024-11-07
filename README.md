@@ -71,6 +71,7 @@ It is only few step to modify the code from BasicLFSR to our project.
 
 ## Test result
 We retest the methods from BasicLFSR with our project.
+
 Here is the result for $\times2$ SR.
 | Model             | EPFL          | HCInew        | HCIold        | INRIA         | STFgantry     |
 | ----------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
