@@ -18,7 +18,8 @@ Our project is primarily based on [BasicSR](https://github.com/XPixelGroup/Basic
 
 1. Install [BasicSR](https://github.com/XPixelGroup/BasicSR/tree/master/basicsr) pakage.
 2. Download and prepare the datasets following the [BasicLFSR](https://github.com/ZhengyuLiang24/BasicLFSR) instructions.
-3. Train the model using the following command:
+3. Transfer the test set from `*.h` to `*.npy` with `H5toNPY.ipynb`. (large `.h5` file is hard to read for some machine.)
+4. Train the model using the following command:
    ```shell
    python BasicSR/basicsr/train.py -opt BasicSR/options/train/final.yml
    ``` 
@@ -27,7 +28,7 @@ Our project is primarily based on [BasicSR](https://github.com/XPixelGroup/Basic
     CUDA_VISIBLE_DEVICES=0,1,2,3 \
     python -m torch.distributed.launch --nproc_per_node=4 --master_port=4321 BasicSR/basicsr/train.py -opt BasicSR/options/train/final.yml --launcher pytorch
    ```
-4. Test the model using the following command:
+5. Test the model using the following command:
    ```shell
    python BasicSR/basicsr/test.py -opt BasicSR/options/test/test_final.yml
    ```
